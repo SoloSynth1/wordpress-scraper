@@ -59,6 +59,6 @@ class WordPressCrawler:
                 else:
                     print("status code returned {}, waiting 30 seconds".format(response.status_code))
                     time.sleep(30)
-            except:
+            except requests.Timeout:
                 print("Timed out.")
                 continue
