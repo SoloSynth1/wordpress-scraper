@@ -1,8 +1,8 @@
 from crawler import crawler
+import os
 
 url = "https://www.lookingglasscyber.com"
-output_dir = ".\\data\\lookingglasscyber"
-
+output_dir = os.path.join('.', 'data', 'lookingglasscyber')
 headers = {
         'Accept':'application/json, text/javascript, */*; q=0.01',
         'Accept-Encoding':'*',
@@ -14,7 +14,8 @@ headers = {
         }
 
 if __name__ == "__main__":
-    wpc = crawler.WordPressCrawler(url, headers)
-    wpc.get_tags("{}\\tags.json".format(output_dir))
-    wpc.get_categories("{}\\cats.json".format(output_dir))
-    wpc.get_posts("{}\\posts.json".format(output_dir))
+    if __name__ == "__main__":
+        wpc = crawler.WordPressCrawler(url, headers)
+        wpc.get_tags(os.path.join('{}'.format(output_dir), 'tags.json'))
+        wpc.get_categories(os.path.join('{}'.format(output_dir), 'cats.json'))
+        wpc.get_posts(os.path.join('{}'.format(output_dir), 'posts.json'))
