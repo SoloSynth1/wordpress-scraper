@@ -8,23 +8,20 @@ class WordPressCrawler:
         self.api = url+'/wp-json/wp/v2'
         self.headers = headers
 
-    def get_categories(self, output_file=None):
-        categories = self._crawl_jsons(self.api + '/categories')
+    def _abstract_get(self, path, output_file):
+        json_output = self._crawl_jsons(self.api + path)
         if output_file:
             utils.dump_json(categories, output_file)
-        return categories
+        return json_output
+
+    def get_categories(self, output_file=None):
+        return self._abstract_get(self, '/categories', output_file)
 
     def get_tags(self, output_file=None):
-        tags = self._crawl_jsons(self.api + '/tags')
-        if output_file:
-            utils.dump_json(tags, output_file)
-        return tags
+        return self._abstract_get(self, '/tags', output_file)
 
     def get_posts(self, output_file=None):
-        posts = self._crawl_jsons(self.api+'/posts')
-        if output_file:
-            utils.dump_json(posts, output_file)
-        return posts
+        return self._abstract_get(self, '/posts', output_file)
 
     def _isjsonarray(self, json):
         return json and isinstance(json, list)
