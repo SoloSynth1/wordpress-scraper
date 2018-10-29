@@ -11,17 +11,17 @@ class WordPressCrawler:
     def _abstract_get(self, path, output_file):
         json_output = self._crawl_jsons(self.api + path)
         if output_file:
-            utils.dump_json(categories, output_file)
+            utils.dump_json(json_output, output_file)
         return json_output
 
     def get_categories(self, output_file=None):
-        return self._abstract_get(self, '/categories', output_file)
+        return self._abstract_get('/categories', output_file)
 
     def get_tags(self, output_file=None):
-        return self._abstract_get(self, '/tags', output_file)
+        return self._abstract_get('/tags', output_file)
 
     def get_posts(self, output_file=None):
-        return self._abstract_get(self, '/posts', output_file)
+        return self._abstract_get('/posts', output_file)
 
     def _isjsonarray(self, json):
         return json and isinstance(json, list)
