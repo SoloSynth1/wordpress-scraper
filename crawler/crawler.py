@@ -26,11 +26,11 @@ class WordPressCrawler:
     def _isjsonarray(self, json):
         return json and isinstance(json, list)
 
-    def _crawl_jsons(self, url, param='page'):
+    def _crawl_jsons(self, url):
         output = []
         i = 1
         while True:
-            json_repsonse = self._get_json_response('{}?{}={}'.format(url,param,i))
+            json_repsonse = self._get_json_response('{}?per_page=100&page={}'.format(url,i))
             if self._isjsonarray(json_repsonse):
                 output += json_repsonse
                 i += 1
@@ -41,10 +41,10 @@ class WordPressCrawler:
     def _get_json_response(self, url):
         while True:
             try:
-                response = requests.get(url, headers=self.headers, timeout=5)   # 5 seconds
+                response = requests.get(url, headers=self.headers, timeout=15)   # 10 seconds
                 print('subpath: {}'.format(url))
                 print('response code: {}'.format(response.status_code))
-                print('response: {}'.format(response.text))
+                print('response head: {}'.format(response.text[:300]))
                 if response.status_code == 200 or response.status_code == 400:
                     return json.loads(response.text)
                 else:
@@ -52,4 +52,7 @@ class WordPressCrawler:
                     time.sleep(30)
             except requests.Timeout:
                 print("Timed out.")
+                continue
+            except Exception as e:
+                print("Exception occurred: {}".format(e))
                 continue
