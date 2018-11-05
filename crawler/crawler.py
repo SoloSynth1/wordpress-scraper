@@ -4,9 +4,10 @@ import time
 from crawler import utils
 
 class WordPressCrawler:
-    def __init__(self,url, headers):
+    def __init__(self,url, headers, crawl_rate=100):
         self.api = url+'/wp-json/wp/v2'
         self.headers = headers
+        self.crawl_rate=crawl_rate
 
     def _abstract_get(self, path, output_file):
         json_output = self._crawl_jsons(self.api + path)
@@ -30,7 +31,7 @@ class WordPressCrawler:
         output = []
         i = 1
         while True:
-            json_repsonse = self._get_json_response('{}?per_page=100&page={}'.format(url,i))
+            json_repsonse = self._get_json_response('{}?per_page={}&page={}'.format(url,self.crawl_rate,i))
             if self._isjsonarray(json_repsonse):
                 output += json_repsonse
                 i += 1
