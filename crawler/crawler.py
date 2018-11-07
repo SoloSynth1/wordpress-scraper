@@ -42,12 +42,12 @@ class WordPressCrawler:
     def _get_json_response(self, url):
         while True:
             try:
-                response = requests.get(url, headers=self.headers, timeout=15)   # 10 seconds
+                response = requests.get(url, headers=self.headers, timeout=30)   # 30 seconds
                 print('subpath: {}'.format(url))
                 print('response code: {}'.format(response.status_code))
                 print('response head: {}'.format(response.text[:300]))
                 if response.status_code == 200 or response.status_code == 400:
-                    return json.loads(response.text)
+                    return json.loads(next(response.iter_lines()))
                 else:
                     print("status code returned {}, waiting 30 seconds".format(response.status_code))
                     time.sleep(30)
