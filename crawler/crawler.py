@@ -1,4 +1,6 @@
 import requests
+# from requests_html import HTMLSession
+
 import json
 import time
 from crawler import utils
@@ -8,6 +10,7 @@ class WordPressCrawler:
         self.api = url+'/wp-json/wp/v2'
         self.headers = headers
         self.crawl_rate=crawl_rate
+        # self.session = HTMLSession()
 
     def _abstract_get(self, path, output_file):
         json_output = self._crawl_jsons(self.api + path)
@@ -42,6 +45,8 @@ class WordPressCrawler:
     def _get_json_response(self, url):
         while True:
             try:
+                # response = self.session.get(url, headers=self.headers, timeout=30)
+                # # response.html.render()
                 response = requests.get(url, headers=self.headers, timeout=30)   # 30 seconds
                 print('subpath: {}'.format(url))
                 print('response code: {}'.format(response.status_code))

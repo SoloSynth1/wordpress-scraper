@@ -1,0 +1,4 @@
+url,output_dir
+"https://australiancybersecuritymagazine.com.au", "./data/australiancybersecuritymagazine.com.au"
+"https://cyberriskleaders.com","./data/cyberriskleaders.com"
+"https://techcrunch.com", "./data/techcrunch.com"
