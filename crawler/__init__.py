@@ -7,10 +7,11 @@ from . import crawler
 
 class BasicJSONCrawlerManager:
 
-    def __init__(self, url, output_dir):
+    def __init__(self, url, output_dir, crawl_rate=25):
         self.url = url
         self.output_dir = output_dir
         self.domain = urlparse(url).netloc
+        self.crawl_rate = crawl_rate
         self.headers = {
             'Accept': 'application/json, text/javascript, */*; q=0.01',
             'Accept-Encoding': '*',
@@ -22,7 +23,7 @@ class BasicJSONCrawlerManager:
         }
 
     def crawl(self):
-        wpc = crawler.WordPressCrawler(self.url, self.headers)
+        wpc = crawler.WordPressCrawler(self.url, self.headers, self.crawl_rate)
         wpc.get_tags(os.path.join('{}'.format(self.output_dir), 'tags.json'))
         wpc.get_categories(os.path.join('{}'.format(self.output_dir), 'cats.json'))
         wpc.get_posts(os.path.join('{}'.format(self.output_dir), 'posts.json'))

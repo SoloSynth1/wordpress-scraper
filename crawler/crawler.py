@@ -6,7 +6,7 @@ import time
 from crawler import utils
 
 class WordPressCrawler:
-    def __init__(self,url, headers, crawl_rate=100):
+    def __init__(self,url, headers, crawl_rate):
         self.api = url+'/wp-json/wp/v2'
         self.headers = headers
         self.crawl_rate=crawl_rate
@@ -34,7 +34,7 @@ class WordPressCrawler:
         output = []
         i = 1
         while True:
-            json_repsonse = self._get_json_response('{}?per_page={}&page={}'.format(url,self.crawl_rate,i))
+            json_repsonse = self._get_json_response('{}?per_page={}&page={}'.format(url, self.crawl_rate, i))
             if self._isjsonarray(json_repsonse):
                 output += json_repsonse
                 i += 1
@@ -42,7 +42,8 @@ class WordPressCrawler:
                 break
         return output
 
-    def _get_json_response(self, url):
+    def _get_json_response(self, url, max_retries=5, retry_standoff_time=30):
+        retries = 0
         while True:
             try:
                 # response = self.session.get(url, headers=self.headers, timeout=30)
@@ -54,8 +55,15 @@ class WordPressCrawler:
                 if response.status_code == 200 or response.status_code == 400:
                     return json.loads(next(response.iter_lines()))
                 else:
-                    print("status code returned {}, waiting 30 seconds".format(response.status_code))
-                    time.sleep(30)
+                    print("status code returned {}".format(response.status_code))
+                    retries += 1
+                    if retries < max_retries:
+                        print("waiting for {} seconds...".format(retry_standoff_time))
+                        time.sleep(retry_standoff_time)
+                        print("retrying... (attempt {} of {})".format(retries, max_retries))
+                    else:
+                        print("max no. of retries reached. exiting...")
+                        break
             except requests.Timeout:
                 print("Timed out.")
                 continue
