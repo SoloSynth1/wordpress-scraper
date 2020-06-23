@@ -8,7 +8,7 @@ from crawler import utils
 
 
 class WordPressCrawler:
-    def __init__(self,url, headers, crawl_rate):
+    def __init__(self,url, headers, crawl_rate=25):
         self.api = url+'/wp-json/wp/v2'
         self.headers = headers
         self.crawl_rate=crawl_rate
