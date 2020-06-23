@@ -1,9 +1,11 @@
+import json
+import time
+
 import requests
 # from requests_html import HTMLSession
 
-import json
-import time
 from crawler import utils
+
 
 class WordPressCrawler:
     def __init__(self,url, headers, crawl_rate):
