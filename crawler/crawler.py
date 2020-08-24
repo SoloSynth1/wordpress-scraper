@@ -11,7 +11,7 @@ class WordPressCrawler:
     def __init__(self,url, headers, crawl_rate=25):
         self.api = url+'/wp-json/wp/v2'
         self.headers = headers
-        self.crawl_rate=crawl_rate
+        self.crawl_rate = crawl_rate
         # self.session = HTMLSession()
 
     def _abstract_get(self, path, output_file):
@@ -50,7 +50,7 @@ class WordPressCrawler:
             try:
                 # response = self.session.get(url, headers=self.headers, timeout=30)
                 # # response.html.render()
-                response = requests.get(url, headers=self.headers, timeout=30)   # 30 seconds
+                response = requests.get(url, headers=self.headers, timeout=30, verify=False)   # 30 seconds, no verify SSL
                 print('subpath: {}'.format(url))
                 print('response code: {}'.format(response.status_code))
                 print('response head: {}'.format(response.text[:300]))
