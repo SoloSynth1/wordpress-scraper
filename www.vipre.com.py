@@ -15,7 +15,7 @@ headers = {
         }
 
 if __name__ == "__main__":
-    wpc = crawler.WordPressCrawler(url, headers, crawl_rate=100)
+    wpc = crawler.WordPressCrawler(url, headers, crawl_rate=100, verify_ssl=False)
     wpc.get_tags(os.path.join('{}'.format(output_dir), 'tags.json'))
     wpc.get_categories(os.path.join('{}'.format(output_dir), 'cats.json'))
     wpc.get_posts(os.path.join('{}'.format(output_dir), 'posts.json'))
