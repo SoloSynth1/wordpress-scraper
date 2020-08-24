@@ -5,7 +5,6 @@ output_dir = ".\\data\\securingtomorrow.mcafee.com"
 
 headers = {
         'Accept':'application/json, text/javascript, */*; q=0.01',
-        'Accept-Encoding':'gzip, deflate, sdch, br',
         'Accept-Language':'zh-CN,zh;q=0.8',
         'Connection':'keep-alive',
         'cookie':'utag_main=_st:1540559125612$ses_id:1540558064662%3Bexp-session; PHPSESSID=99p4mht3963nnm4649bhdhcna1',
