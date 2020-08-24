@@ -1,5 +1,5 @@
-./data
-./venv
-./.*
-./__*
-./*.ipynb
+data/
+venv/
+__*
+*.ipynb
+.idea/
