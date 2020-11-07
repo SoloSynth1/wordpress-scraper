@@ -1,10 +1,13 @@
 from uuid import uuid4
 from typing import List
+import datetime
 
 from urllib.parse import urlparse
 
 from wpscraper.connector import Connector, FileSystemConnector
-from wpscraper.crawler import Crawler, WordPressCrawler
+from wpscraper.crawler import Crawler, SimpleRequestsCrawler
+from wpscraper.headers import DefaultHeaders
+from wpscraper.document import JSONDocument
 
 VALID_PATHS = [
     'posts',
@@ -12,17 +15,19 @@ VALID_PATHS = [
     'categories'
 ]
 
-def validate_paths(paths_to_crawl: List[str]):
-    for path in paths_to_crawl:
+
+def validate_paths(resources: List[str]):
+    for path in resources:
         if path not in VALID_PATHS:
             raise NameError('path "{}" is not a valid path.'.format(path))
 
+
 class CrawlSession:
-    def __init__(self, url: str, paths_to_crawl: List[str], session_name: str = str(uuid4())):
-        self.name = session_name
+    def __init__(self, url: str, resources: List[str], session_id: str = str(uuid4())):
+        self.session_id = session_id
         self.url = url
         self.domain = urlparse(self.url).netloc
-        self.paths = validate_paths(paths_to_crawl)
+        self.resources = validate_paths(resources)
         self.crawler = None
         self.connectors = []
 
@@ -35,11 +40,22 @@ class CrawlSession:
     def execute(self):
         if not (self.crawler and self.connectors):
             raise AssertionError("No crawler and/or connector is specified.")
-        for path in self.paths:
-            products = self.crawler.
+        for resource in self.resources:
+            while True:
+                raw_documents = self.crawler.crawl(resource=resource)
+                if not raw_documents:
+                    break
+                current_timestamp = datetime.datetime.utcnow().isoformat()
+                documents = [JSONDocument(document, resource_type=resource, session_id=self.session_id,
+                                          crawledtime=current_timestamp) for document in raw_documents]
+                for document in documents:
+                    for connector in self.connectors:
+                        connector.process_document(resource=resource, document=document)
+
 
 class DefaultCrawlSession(CrawlSession):
     def __init__(self, url: str, paths_to_crawl: List[str], session_name: str = str(uuid4())):
         super().__init__(url, paths_to_crawl, session_name)
-        self.crawler = WordPressCrawler()
+        headers = DefaultHeaders(self.domain)
+        self.crawler = SimpleRequestsCrawler(url=self.url, headers=headers)
         self.connectors = [FileSystemConnector(folder='./data/{}'.format(self.domain), save_as_individual_files=False)]

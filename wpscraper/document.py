@@ -12,13 +12,15 @@ class Document(ABC):
         pass
 
 
-class RawDocument(Document):
-    def __init__(self, raw_data: dict):
+class JSONDocument(Document):
+    # receive and process raw JSON document from WP-JSON API
+    def __init__(self, raw_data: dict, **kwargs):
         super().__init__(raw_data)
-        self.process_raw_data()
+        self.process_raw_data(kwargs)
 
-    def process_raw_data(self):
-        self.data = self.raw_data
+    def process_raw_data(self, kwargs: dict):
+        self.data = {"data": self.raw_data}
+        self.data.update(kwargs)
 
     def __repr__(self):
         return self.data

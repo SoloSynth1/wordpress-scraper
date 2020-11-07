@@ -3,14 +3,13 @@ import time
 from abc import ABC, abstractmethod
 
 from wpscraper.headers import Headers
-from wpscraper.document import RawDocument
 
 import requests
 
 
 class Crawler(ABC):
     def __init__(self, url, headers: Headers, verify_ssl: bool, timeout: int, max_retries: int):
-        self.api_path = url + '/wp-json/wp/v2'
+        self.api_path = url + '/wp-json/wp/v2/'
         self.headers = headers
         self.verify_ssl = verify_ssl
         self.timeout = timeout
@@ -34,10 +33,10 @@ class SimpleRequestsCrawler(Crawler):
         if resource in self.crawled_resource_count.keys():
             self.crawled_resource_count[resource] = 0
         objs = self._get_json_response(
-            self.api_path+'?per_page={}&page={}'.format(self.crawl_rate, self.crawled_resource_count[resource])
+            self.api_path+resource+'?per_page={}&page={}'.format(self.crawl_rate, self.crawled_resource_count[resource])
         )
         if objs and isinstance(objs, list):
-            documents = [RawDocument(obj) for obj in objs]
+            documents = objs
             self.crawled_resource_count[resource] += 1
         else:
             print("No documents are crawled.")
