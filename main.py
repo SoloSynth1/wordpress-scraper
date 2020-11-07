@@ -1,6 +1,6 @@
 import argparse
 
-from crawler import BasicJSONCrawlerManager
+from legacy.crawler import BasicJSONCrawlerManager
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
