@@ -10,7 +10,7 @@ Simple, easy-to-use scraper to scraper data from WordPress JSON API
 
 ## Installation
 
-```python
+```bash
 pip install -r requirements.txt
 ```
 
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 Just run `crawl.py` with the sites URL supplied:
 
-```python
+```bash
 python3 crawl.py https://your.website.here
 ```
 
