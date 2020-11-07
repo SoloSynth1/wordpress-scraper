@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class Header(ABC):
+class Headers(ABC):
     @abstractmethod
     def __init__(self):
         self.headers = None
@@ -10,8 +10,9 @@ class Header(ABC):
         return str(self.headers)
 
 
-class DefaultHeader(Header):
+class DefaultHeaders(Headers):
     def __init__(self, domain):
+        super().__init__()
         self.headers = {
             'Accept': 'application/json, text/javascript, */*; q=0.01',
             'Accept-Encoding': '*',
