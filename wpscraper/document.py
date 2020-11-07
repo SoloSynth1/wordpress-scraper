@@ -1,27 +1,24 @@
-import json
 from typing import Any
 from abc import ABC, abstractmethod
 
 
 class Document(ABC):
-    @abstractmethod
     def __init__(self, raw_data: Any):
-        pass
-
-    @abstractmethod
-    def process_raw_data(self):
-        pass
-
-
-class JSONDocument(Document):
-    def __init__(self, raw_data: str):
-        super().__init__(raw_data)
         self.raw_data = raw_data
         self.data = None
+
+    @abstractmethod
+    def process_raw_data(self, *args, **kwargs):
+        pass
+
+
+class RawDocument(Document):
+    def __init__(self, raw_data: dict):
+        super().__init__(raw_data)
         self.process_raw_data()
 
     def process_raw_data(self):
-        self.data = json.loads(self.raw_data)
+        self.data = self.raw_data
 
     def __repr__(self):
         return self.data
