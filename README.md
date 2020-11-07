@@ -39,3 +39,4 @@ For advanced usage and customizations you may want to look at `wpscraper/session
 - [x] Rewrite/Refactor
 - [ ] MongoDB Connector
 - [ ] Async session
+- [ ] Authenication Module
