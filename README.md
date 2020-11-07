@@ -10,20 +10,26 @@ Simple, easy-to-use scraper to scraper data from WordPress JSON API
 
 ## Installation
 
-install all dependencies by running `pip install -r requirements.txt`
+```python
+pip install -r requirements.txt
+```
 
 ## How to use
 
 ### Basic
 
-When scraping unprotected sites (not required to sign in & JSON API paths not blocked), `DefaultCrawlSession` will suffice.
+Just run `crawl.py` with the sites URL supplied:
 
-The `DefaultCrawlSession` will crawl all `posts`, `categories` & `tags` from the site.
+```python
+python3 crawl.py https://your.website.here
+```
 
+This will crawl the site using `DefaultCrawlSession`, which attempts to crawl all `posts`, `categories` & `tags` from the site.
 
-Just run `main.py` with the sites URL supplied:
+The crawled JSON files will be stored in the directory `./data/<domain-name>`.
 
-`python main.py https://your.website.here`
+Most of the time, This will suffice when scraping sites that are 1. not required to sign in & 2. JSON API paths not blocked.
+
 
 ### Advanced
 For advanced usage and customizations you may want to look at `wpscraper/session.py` for actual crawling procedures, and make your own `CrawlSession`.
