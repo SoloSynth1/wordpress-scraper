@@ -86,7 +86,7 @@ def inception(directory):
         os.makedirs(directory)
 
 
-def dump_json(json_object,output_file):
+def dump_json(json_object, output_file):
     ensure_file_directory(output_file)
     with open(output_file, 'w') as f:
         f.write(json.dumps(json_object))

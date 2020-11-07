@@ -30,7 +30,7 @@ class CrawlSession:
             self.header = DefaultHeader(self.domain)
         self.paths = validate_paths(paths_to_crawl)
         self.crawler = WordPressCrawler(headers=header, crawl_rate=crawl_rate, verify_ssl=verify_ssl)
-        self.connectors = FileSystemConnector()
+        self.connectors = [FileSystemConnector(folder="./data/{}".format(self.domain), save_as_individual_files=False)]
 
     def execute(self):
         for path in self.paths:
