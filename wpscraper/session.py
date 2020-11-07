@@ -20,6 +20,7 @@ def validate_paths(resources: List[str]):
     for path in resources:
         if path not in VALID_PATHS:
             raise NameError('path "{}" is not a valid path.'.format(path))
+    return resources
 
 
 class CrawlSession:
@@ -54,8 +55,10 @@ class CrawlSession:
 
 
 class DefaultCrawlSession(CrawlSession):
-    def __init__(self, url: str, paths_to_crawl: List[str], session_name: str = str(uuid4())):
-        super().__init__(url, paths_to_crawl, session_name)
+    def __init__(self, url: str, session_id: str = str(uuid4())):
+        resources = ['posts', 'tags', 'categories']
+        super().__init__(url, resources=resources, session_id=session_id)
         headers = DefaultHeaders(self.domain)
         self.crawler = SimpleRequestsCrawler(url=self.url, headers=headers)
-        self.connectors = [FileSystemConnector(folder='./data/{}'.format(self.domain), save_as_individual_files=False)]
+        self.connectors = [FileSystemConnector(folder='./data/{}'.format(self.domain), save_as_individual_files=True)]
+

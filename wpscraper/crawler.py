@@ -30,8 +30,8 @@ class SimpleRequestsCrawler(Crawler):
 
     def crawl(self, resource: str):
         documents = []
-        if resource in self.crawled_resource_count.keys():
-            self.crawled_resource_count[resource] = 0
+        if not resource in self.crawled_resource_count.keys():
+            self.crawled_resource_count[resource] = 1
         objs = self._get_json_response(
             self.api_path+resource+'?per_page={}&page={}'.format(self.crawl_rate, self.crawled_resource_count[resource])
         )
@@ -46,7 +46,7 @@ class SimpleRequestsCrawler(Crawler):
         attempt_count = 1
         while attempt_count < self.max_retries:
             try:
-                response = requests.get(url, headers=self.headers, timeout=self.timeout, verify=self.verify_ssl)
+                response = requests.get(url, headers=self.headers.headers, timeout=self.timeout, verify=self.verify_ssl)
                 print('subpath: {}'.format(url))
                 print('response code: {}'.format(response.status_code))
                 print('response head: {}'.format(response.text[:300]))
@@ -56,15 +56,12 @@ class SimpleRequestsCrawler(Crawler):
                     print("status code returned {}".format(response.status_code))
             except requests.Timeout:
                 print("Timed out.")
-                continue
             except Exception as e:
                 print("Exception occurred: {}".format(e))
-                continue
-            finally:
-                attempt_count += 1
-                print("waiting for {} seconds...".format(self.constant_retry_standoff))
-                time.sleep(self.constant_retry_standoff)
-                print("retrying... (attempt {} of {})".format(attempt_count, self.max_retries))
+            attempt_count += 1
+            print("waiting for {} seconds...".format(self.constant_retry_standoff))
+            time.sleep(self.constant_retry_standoff)
+            print("retrying... (attempt {} of {})".format(attempt_count, self.max_retries))
         print("max no. of retries reached. exiting...")
         return None
 

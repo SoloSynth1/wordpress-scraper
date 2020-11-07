@@ -46,6 +46,7 @@ class FileSystemConnector(Connector):
         file_to_write = os.path.join(self.folder, "{}.json".format(resource))
         with open(file_to_write, 'a') as f:
             f.write(json_string)
+            f.write("\n")   # add linebreak at the end
 
 
 class MongoDBConnector(Connector):
