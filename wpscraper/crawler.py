@@ -2,16 +2,26 @@ import json
 import time
 import os
 import re
+from abc import ABC, abstractmethod
+from typing import List
 
 import requests
 
 
-class WordPressCrawler:
-    def __init__(self, url, headers, crawl_rate, verify_ssl):
+
+class Crawler(ABC):
+    @abstractmethod
+    def crawl(self):
+        pass
+
+class WordPressCrawler(Crawler):
+    def __init__(self, url, headers: Header = None,, crawl_rate, verify_ssl):
         self.api = url+'/wp-json/wp/v2'
         self.headers = headers
         self.crawl_rate = crawl_rate
         self.verify_ssl = verify_ssl
+        self.resource_to_crawl = resource_to_crawl
+        self.page = 0
         # self.session = HTMLSession()
 
     def _abstract_get(self, path, output_file):

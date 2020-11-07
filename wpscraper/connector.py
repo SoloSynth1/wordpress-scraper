@@ -15,14 +15,14 @@ def create_directory(directory):
         os.makedirs(directory)
 
 
-class AbstractConnector(ABC):
+class Connector(ABC):
 
     @abstractmethod
     def process_document(self, document: Document):
         pass
 
 
-class FileSystemConnector(AbstractConnector):
+class FileSystemConnector(Connector):
     def __init__(self, folder: str, save_as_individual_files: bool = False):
         self.folder = folder
         self.save_as_individual_files = save_as_individual_files
@@ -32,7 +32,7 @@ class FileSystemConnector(AbstractConnector):
         pass
 
 
-class MongoDBConnector(AbstractConnector):
+class MongoDBConnector(Connector):
     def __init__(self, connection_string: str, collection_name: str):
         self.connection_string = connection_string
         self.collection_name = collection_name
