@@ -9,8 +9,7 @@ from wpscraper.document import Document
 
 
 def create_directory(directory):
-    directory = os.path.dirname(os.path.realpath(directory))
-    parent_directory = os.path.dirname(directory)
+    parent_directory = os.path.dirname(os.path.realpath(directory))
     if not os.path.exists(parent_directory):
         create_directory(parent_directory)
     if not os.path.exists(directory):
