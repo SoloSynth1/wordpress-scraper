@@ -38,6 +38,9 @@ class CrawlSession:
     def add_connector(self, connector: Connector):
         self.connectors.append(connector)
 
+    def set_connectors(self, connectors: List[Connector]):
+        self.connectors = connectors
+
     def execute(self):
         if not (self.crawler and self.connectors):
             raise AssertionError("No crawler and/or connector is specified.")
