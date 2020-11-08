@@ -3,14 +3,13 @@ from abc import ABC, abstractmethod
 import hashlib
 import json
 
-import pymongo
+from pymongo import MongoClient
 
 from wpscraper.document import Document
 
 
 def create_directory(directory):
-    directory = os.path.dirname(os.path.realpath(directory))
-    parent_directory = os.path.dirname(directory)
+    parent_directory = os.path.dirname(os.path.realpath(directory))
     if not os.path.exists(parent_directory):
         create_directory(parent_directory)
     if not os.path.exists(directory):
@@ -50,10 +49,21 @@ class FileSystemConnector(Connector):
 
 
 class MongoDBConnector(Connector):
-    def __init__(self, connection_string: str, collection_name: str):
-        self.connection_string = connection_string
-        self.collection_name = collection_name
+    def __init__(self, db_host: str, db_port: int, db_database: str, db_collection: str,
+                 username: str, password: str, auth_source: str = "admin", auth_mechanism: str = "SCRAM-SHA-256"):
+        self.db_host = db_host
+        self.db_port = db_port
+        self.db_database = db_database
+        self.db_collection = db_collection
+        self.username = username
+        self.password = password
+        self.auth_source = auth_source
+        self.auth_mechanism = auth_mechanism
 
     def process_document(self, document: Document, resource: str):
+        client = MongoClient(host=self.db_host, port=self.db_port, username=self.username, password=self.password,
+                             authSource=self.auth_source, authMechanism=self.auth_mechanism)
         # TODO: Implement actual process to upload document to MongoDB
-        pass
+        doc_id = client[self.db_database][self.db_collection].insert_one(document=document.data).inserted_id
+        if not doc_id:
+            raise ConnectionError("Couldn't insert document into MongoDB.")

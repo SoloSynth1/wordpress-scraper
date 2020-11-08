@@ -61,4 +61,3 @@ class DefaultCrawlSession(CrawlSession):
         headers = DefaultHeaders(self.domain)
         self.crawler = SimpleRequestsCrawler(url=self.url, headers=headers)
         self.connectors = [FileSystemConnector(folder='./data/{}'.format(self.domain), save_as_individual_files=True)]
-
