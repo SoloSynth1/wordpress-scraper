@@ -37,6 +37,6 @@ For advanced usage and customizations you may want to look at `wpscraper/session
 ## Upcoming Features
 
 - [x] Rewrite/Refactor
-- [ ] MongoDB Connector
+- [x] MongoDB Connector
 - [ ] Async session
 - [ ] Authentication Module
