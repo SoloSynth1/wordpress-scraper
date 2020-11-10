@@ -59,10 +59,10 @@ class MongoDBConnector(Connector):
         self.password = password
         self.auth_source = auth_source
         self.auth_mechanism = auth_mechanism
+        self.client = MongoClient(host=self.db_host, port=self.db_port, username=self.username, password=self.password,
+                             authSource=self.auth_source, authMechanism=self.auth_mechanism)
 
     def process_document(self, document: Document, resource: str):
-        client = MongoClient(host=self.db_host, port=self.db_port, username=self.username, password=self.password,
-                             authSource=self.auth_source, authMechanism=self.auth_mechanism)
-        doc_id = client[self.db_database][self.db_collection].insert_one(document=document.data).inserted_id
+        doc_id = self.client[self.db_database][self.db_collection].insert_one(document=document.data).inserted_id
         if not doc_id:
             raise ConnectionError("Couldn't insert document into MongoDB.")
