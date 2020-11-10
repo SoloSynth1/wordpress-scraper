@@ -63,7 +63,6 @@ class MongoDBConnector(Connector):
     def process_document(self, document: Document, resource: str):
         client = MongoClient(host=self.db_host, port=self.db_port, username=self.username, password=self.password,
                              authSource=self.auth_source, authMechanism=self.auth_mechanism)
-        # TODO: Implement actual process to upload document to MongoDB
         doc_id = client[self.db_database][self.db_collection].insert_one(document=document.data).inserted_id
         if not doc_id:
             raise ConnectionError("Couldn't insert document into MongoDB.")
