@@ -1,4 +1,4 @@
-certifi==2018.10.15
+certifi==2020.12.5
 chardet==4.0.0
 idna==2.7
 pymongo==3.11.3
