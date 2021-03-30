@@ -1,15 +1,15 @@
 from legacy.crawler import crawler
 import os
 
-url = "https://www.lookingglasscyber.com"
-output_dir = os.path.join('.', 'data', 'lookingglasscyber')
+url = "https://www.andrewhay.ca"
+output_dir = os.path.join('.', 'data', 'andrewhay.ca')
 headers = {
         'Accept':'application/json, text/javascript, */*; q=0.01',
         'Accept-Encoding':'*',
         'Accept-Language':'zh-CN,zh;q=0.8',
+        'Cookie': '_ga=GA1.2.244034378.1540788304; _gid=GA1.2.222331079.1540788304',
         'Connection':'keep-alive',
-        'Cookie':'__cfduid=d8bd3b5ad23455ce8b26bcbb869ff80c31540451497',
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+        'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/70.0.3538.67 Chrome/70.0.3538.67 Safari/537.36',
         'X-Requested-With':'XMLHttpRequest'
         }
 

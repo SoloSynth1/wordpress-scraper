@@ -2,7 +2,7 @@ from legacy.crawler import crawler
 import os
 
 url = "https://threatpost.com/"
-output_dir = os.path.join('../..', 'data', 'threatpost')
+output_dir = os.path.join('.', 'data', 'threatpost')
 headers = {
         'Accept':'application/json, text/javascript, */*; q=0.01',
         'Accept-Encoding':'*',
@@ -15,7 +15,6 @@ headers = {
         }
 
 if __name__ == "__main__":
-    wpc = crawler.WordPressCrawler(url, headers)
-    wpc.get_tags(os.path.join('{}'.format(output_dir), 'tags.json'))
-    wpc.get_categories(os.path.join('{}'.format(output_dir), 'cats.json'))
-    wpc.get_posts(os.path.join('{}'.format(output_dir), 'posts.json'))
+    from legacy import common_crawl
+    wpc = crawler.WordPressCrawler(url, headers, output_dir)
+    common_crawl(wpc)

@@ -1,18 +1,19 @@
 import json
 import time
+import os
 
 import requests
-# from requests_html import HTMLSession
 
 from legacy.crawler import utils
 
 
 class WordPressCrawler:
-    def __init__(self,url, headers, crawl_rate=25, verify_ssl=True):
-        self.api = url+'/wp-json/wp/v2'
+    def __init__(self, url, headers, output_dir, crawl_rate=25, verify_ssl=True):
+        self.api = url + '/wp-json/wp/v2'
         self.headers = headers
         self.crawl_rate = crawl_rate
         self.verify_ssl = verify_ssl
+        self.output_dir = output_dir
         # self.session = HTMLSession()
 
     def _abstract_get(self, path, output_file):
@@ -22,16 +23,25 @@ class WordPressCrawler:
         return json_output
 
     def get_categories(self, output_file=None):
+        if not output_file:
+            output_file = os.path.join(self.output_dir, "cats.json")
         return self._abstract_get('/categories', output_file)
 
     def get_tags(self, output_file=None):
+        if not output_file:
+            output_file = os.path.join(self.output_dir, "tags.json")
         return self._abstract_get('/tags', output_file)
 
     def get_posts(self, output_file=None):
+        if not output_file:
+            output_file = os.path.join(self.output_dir, "posts.json")
         return self._abstract_get('/posts', output_file)
 
     def _isjsonarray(self, json):
         return json and isinstance(json, list)
+
+    def set_output_dir(self, output_dir):
+        self.output_dir = output_dir
 
     def _crawl_jsons(self, url):
         output = []
@@ -51,7 +61,7 @@ class WordPressCrawler:
             try:
                 # response = self.session.get(url, headers=self.headers, timeout=30)
                 # # response.html.render()
-                response = requests.get(url, headers=self.headers, timeout=30, verify=self.verify_ssl)   # 30 seconds
+                response = requests.get(url, headers=self.headers, timeout=30, verify=self.verify_ssl)  # 30 seconds
                 print('subpath: {}'.format(url))
                 print('response code: {}'.format(response.status_code))
                 print('response head: {}'.format(response.text[:300]))

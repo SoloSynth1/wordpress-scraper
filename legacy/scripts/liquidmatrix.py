@@ -1,15 +1,16 @@
 from legacy.crawler import crawler
 import os
 
-url = "https://www.lookingglasscyber.com"
-output_dir = os.path.join('.', 'data', 'lookingglasscyber')
+url = "https://www.liquidmatrix.org/blog"
+output_dir = os.path.join('.', 'data', 'liquidmatrix.org')
 headers = {
         'Accept':'application/json, text/javascript, */*; q=0.01',
         'Accept-Encoding':'*',
         'Accept-Language':'zh-CN,zh;q=0.8',
+        'Cookie': '__atuvc=1%7C44; __atuvs=5bd6b92398768410000',
+        'Host': 'www.liquidmatrix.org',
         'Connection':'keep-alive',
-        'Cookie':'__cfduid=d8bd3b5ad23455ce8b26bcbb869ff80c31540451497',
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+        'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/70.0.3538.67 Chrome/70.0.3538.67 Safari/537.36',
         'X-Requested-With':'XMLHttpRequest'
         }
 
