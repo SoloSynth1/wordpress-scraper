@@ -28,7 +28,9 @@ This will crawl the site using `DefaultCrawlSession`, which attempts to crawl al
 
 The crawled JSON files will be stored in the directory `./data/<domain-name>`.
 
-Most of the time, This will suffice when scraping sites that are 1. not required to sign in & 2. JSON API paths not blocked.
+Most of the time, This will suffice when scraping sites that are:
+1. not required to sign in 
+2. JSON API paths not blocked
 
 
 ### Advanced
@@ -40,3 +42,4 @@ For advanced usage and customizations you may want to look at `wpscraper/session
 - [x] MongoDB Connector
 - [ ] Async session
 - [ ] Authentication Module
+- [ ] Cloudflare circumvention
