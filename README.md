@@ -4,6 +4,10 @@
 
 Simple, easy-to-use scraper to scrape data from WordPress JSON API
 
+### Features
+- Support storing crawled documents as MongoDB documents / JSON files
+- Auto retry upon errors
+
 ## Requirements
 
  - Python 3.7+
@@ -43,3 +47,4 @@ For advanced usage and customizations you may want to look at `wpscraper/session
 - [ ] Async session
 - [ ] Authentication Module
 - [ ] Cloudflare circumvention
+- [ ] Configurable retry policies
