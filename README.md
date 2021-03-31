@@ -2,7 +2,7 @@
 
 ## Description
 
-Simple, easy-to-use scraper to scraper data from WordPress JSON API
+Simple, easy-to-use scraper to scrape data from WordPress JSON API
 
 ## Requirements
 
