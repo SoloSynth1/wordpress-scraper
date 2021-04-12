@@ -2,9 +2,9 @@ import json
 import time
 from abc import ABC, abstractmethod
 
-from wpscraper.headers import Headers
-
 import requests
+
+from wpscraper.headers import Headers
 
 
 class Crawler(ABC):
