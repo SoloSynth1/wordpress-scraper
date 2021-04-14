@@ -1,6 +1,7 @@
 import csv
 import os
 from multiprocessing import Pool
+import argparse
 
 from legacy_main import crawl
 
@@ -22,10 +23,13 @@ def parse(csv_path: str):
         raise FileNotFoundError()
 
 
-def main():
-    jobs = parse("./legacy/scripts/crawled_list.csv")
+def main(csv_file):
+    jobs = parse(csv_file)
     multiple_crawl(jobs)
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--csvfile', default="./legacy/scripts/crawled_list.csv")
+    args = parser.parse_args()
+    main(args.csvfile)
