@@ -2,7 +2,7 @@ url,output_dir
 "https://australiancybersecuritymagazine.com.au","./data/australiancybersecuritymagazine.com.au"
 "https://cyberriskleaders.com","./data/cyberriskleaders.com"
 "https://techcrunch.com","./data/techcrunch.com"
-"https://www.wired.com","./data/wried.com"
+"https://www.wired.com","./data/wired.com"
 "https://www.varonis.com/blog","./data/www.varonis.com"
 "https://www.asiapacificsecuritymagazine.com","./data/www.asiapacificsecuritymagazine.com"
 "https://www.nozominetworks.com","./data/www.nozominetworks.com"
