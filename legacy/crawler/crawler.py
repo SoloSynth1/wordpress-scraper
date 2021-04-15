@@ -8,15 +8,19 @@ from legacy.crawler import utils
 
 
 class WordPressCrawler:
-    def __init__(self, url, headers, output_dir, crawl_rate=25, verify_ssl=True):
+    def __init__(self, url, headers, output_dir, crawl_rate=25, verify_ssl=True, timeout=30, retry_standoff=30,
+                 max_retries=5):
         self.api = url + '/wp-json/wp/v2'
         self.headers = headers
         self.crawl_rate = crawl_rate
         self.verify_ssl = verify_ssl
         self.output_dir = output_dir
+        self.timeout = timeout
+        self.retry_standoff = retry_standoff
+        self.max_retries = max_retries
         # self.session = HTMLSession()
 
-    def _abstract_get(self, path, output_file):
+    def _get(self, path, output_file):
         json_output = self._crawl_jsons(self.api + path)
         if output_file:
             utils.dump_json(json_output, output_file)
@@ -25,17 +29,17 @@ class WordPressCrawler:
     def get_categories(self, output_file=None):
         if not output_file:
             output_file = os.path.join(self.output_dir, "cats.json")
-        return self._abstract_get('/categories', output_file)
+        return self._get('/categories', output_file)
 
     def get_tags(self, output_file=None):
         if not output_file:
             output_file = os.path.join(self.output_dir, "tags.json")
-        return self._abstract_get('/tags', output_file)
+        return self._get('/tags', output_file)
 
     def get_posts(self, output_file=None):
         if not output_file:
             output_file = os.path.join(self.output_dir, "posts.json")
-        return self._abstract_get('/posts', output_file)
+        return self._get('/posts', output_file)
 
     def _isjsonarray(self, json):
         return json and isinstance(json, list)
@@ -55,12 +59,13 @@ class WordPressCrawler:
                 break
         return output
 
-    def _get_json_response(self, url, max_retries=5, retry_standoff_time=30):
+    def _get_json_response(self, url):
         retries = 1
-        while retries <= max_retries:
-            print("attempt #{} of {} - {}".format(retries, max_retries, url))
+        while retries <= self.max_retries:
+            print("attempt #{} of {} - {}".format(retries, self.max_retries, url))
             try:
-                response = requests.get(url, headers=self.headers, timeout=30, verify=self.verify_ssl)  # 30 seconds
+                response = requests.get(url, headers=self.headers, timeout=self.timeout,
+                                        verify=self.verify_ssl)  # 30 seconds
                 print('response code: {}'.format(response.status_code))
                 print('response head: {}'.format(response.text[:300]))
                 # some API return valid response despite code 400 (weird I know)
@@ -74,7 +79,7 @@ class WordPressCrawler:
             except Exception as e:
                 print("Exception occurred:\nError Type: {}\nDetails: {}".format(type(e), str(e)))
             retries += 1
-            print("waiting for {} seconds...".format(retry_standoff_time))
-            time.sleep(retry_standoff_time)
+            print("waiting for {} seconds...".format(self.retry_standoff))
+            time.sleep(self.retry_standoff)
         print("max no. of retries reached. exiting...")
         return None
