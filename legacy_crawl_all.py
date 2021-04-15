@@ -5,11 +5,12 @@ import argparse
 
 from legacy_main import crawl
 
-threads = 5
+threads = 10
+crawl_rate = 5
 
 
 def multiple_crawl(jobs):
-    flattened_jobs = map(lambda x: (x['url'], x['output_dir']), jobs)
+    flattened_jobs = map(lambda x: (x['url'], x['output_dir'], crawl_rate), jobs)
     with Pool(threads) as p:
         p.starmap(crawl, flattened_jobs)
 

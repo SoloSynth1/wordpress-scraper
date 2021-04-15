@@ -72,7 +72,7 @@ class WordPressCrawler:
             except requests.Timeout:
                 print("Timed out.")
             except Exception as e:
-                print("Exception occurred: {}".format(e))
+                print("Exception occurred:\nError Type: {}\nDetails: {}".format(type(e), str(e)))
             retries += 1
             print("waiting for {} seconds...".format(retry_standoff_time))
             time.sleep(retry_standoff_time)

@@ -29,3 +29,8 @@ url,output_dir
 "https://time.com","./data/time.com"
 "https://www.itworldcanada.com/","./data/www.itworldcanada.com"
 "https://www.sfexaminer.com","./data/sfexaminer.com"
+"https://cybersecuritynews.com","./data/cybersecuritynews.com"
+"https://cybersecurityventures.com","./data/cybersecurityventures.com"
+"https://www.innovationnewsnetwork.com","./data/innovationnewsnetwork.com"
+"https://www.telos.com","./data/telos.com"
+
