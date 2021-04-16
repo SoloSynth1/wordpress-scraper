@@ -15,5 +15,5 @@ headers = {
 
 if __name__ == "__main__":
     from legacy import common_crawl
-    wpc = crawler.WordPressCrawler(url, headers, output_dir, crawl_rate=10, retry_standoff=60, max_retries=20)
+    wpc = crawler.WordPressCrawler(url, headers, output_dir, crawl_rate=1, retry_standoff=60, max_retries=20)
     common_crawl(wpc)
