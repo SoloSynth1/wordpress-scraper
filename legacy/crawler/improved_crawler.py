@@ -55,8 +55,7 @@ class MultiThreadedCrawler:
             urls = ['{}?per_page={}&page={}'.format(url, 1, x) for x in range(i, i+self.crawl_rate, 1)]
             with Pool(self.crawl_rate) as p:
                 json_responses = p.map(self._get_json_response, urls)
-            json_responses = filter(None, json_responses)
-            # json_repsonse = self._get_json_response('{}?per_page={}&page={}')
+            json_responses = list(filter(None, json_responses))
             if self._isjsonarray(json_responses):
                 output += json_responses
                 i += self.crawl_rate
