@@ -1,4 +1,4 @@
-from legacy.crawler import crawler
+from legacy.crawler import improved_crawler
 import os
 
 url = "https://securityboulevard.com"
@@ -15,5 +15,5 @@ headers = {
 
 if __name__ == "__main__":
     from legacy import common_crawl
-    wpc = crawler.WordPressCrawler(url, headers, output_dir, crawl_rate=1, retry_standoff=60, max_retries=20)
+    wpc = improved_crawler.MultiThreadedCrawler(url, headers, output_dir, crawl_rate=1, retry_standoff=60, max_retries=20)
     common_crawl(wpc)
