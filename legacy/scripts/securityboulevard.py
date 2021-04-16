@@ -15,5 +15,5 @@ headers = {
 
 if __name__ == "__main__":
     from legacy import common_crawl
-    wpc = improved_crawler.MultiThreadedCrawler(url, headers, output_dir, crawl_rate=1, retry_standoff=60, max_retries=20)
+    wpc = improved_crawler.MultiThreadedCrawler(url, headers, output_dir, crawl_rate=20, retry_standoff=30, max_retries=5)
     common_crawl(wpc)
