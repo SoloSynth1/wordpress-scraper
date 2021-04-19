@@ -25,7 +25,6 @@ url,output_dir
 "https://pulse.target.com","./data/pulse.target.com"
 "https://hackaday.com","./data/haceaday.com"
 "http://blog.ecocn.org","./data/blog.ecocn.org"
-"https://www.inquisitr.com","./data/www.inquisitr.com"
 "https://time.com","./data/time.com"
 "https://www.itworldcanada.com/","./data/www.itworldcanada.com"
 "https://www.sfexaminer.com","./data/sfexaminer.com"
