@@ -23,7 +23,7 @@ url,output_dir
 "https://www.rd.com","./data/rd.com"
 "https://blog.mozilla.org","./data/blog.mozilla.org"
 "https://pulse.target.com","./data/pulse.target.com"
-"https://hackaday.com","./data/haceaday.com"
+"https://hackaday.com","./data/hackaday.com"
 "http://blog.ecocn.org","./data/blog.ecocn.org"
 "https://time.com","./data/time.com"
 "https://www.itworldcanada.com/","./data/www.itworldcanada.com"
