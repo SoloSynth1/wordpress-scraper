@@ -1,7 +1,7 @@
 from legacy.crawler import crawler
 import os
 
-url = "https://www.techlear.com"
+url = "https://www.techlear.com/blog"
 output_dir = os.path.join('.', 'data', 'techlear.com')
 headers = {
         'Accept':'application/json, text/javascript, */*; q=0.01',
