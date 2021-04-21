@@ -2,7 +2,7 @@ from legacy.crawler import crawler
 import os
 
 url = "http://cyberthreat.blog"
-output_dir = os.path.join('.', 'data', 'cyberthreat')
+output_dir = os.path.join('.', 'data', 'cyberthreat.blog')
 headers = {
         'Accept':'application/json, text/javascript, */*; q=0.01',
         'Accept-Encoding':'*',
