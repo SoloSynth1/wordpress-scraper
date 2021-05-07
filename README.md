@@ -48,3 +48,4 @@ For advanced usage and customizations you may want to look at `wpscraper/session
 - [ ] Authentication Module
 - [ ] Cloudflare circumvention
 - [ ] Configurable retry policies
+- [ ] Full WPv2 API resources support
