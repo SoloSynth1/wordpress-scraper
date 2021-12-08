@@ -1,2 +1,2 @@
-pymongo==4.0
+pymongo==4.0.1
 requests==2.26.0
